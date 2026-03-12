@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts — Latin + Arabic/Persian support (PRD §12.2) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --color-primary: #2E4A6E;
+    --color-secondary: #F5A623;
+    --color-accent: #4CAF50;
+    --color-danger: #E53E3E;
+    --color-bg: #F8F9FA;
+    --bottom-nav-height: 64px;
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  html {
+    font-family: 'Inter', 'Noto Sans Arabic', 'Noto Sans', system-ui, sans-serif;
+    background-color: var(--color-bg);
+    /* RTL is applied dynamically via JavaScript (PRD §12.2) */
+  }
+
+  /* RTL layout adjustments */
+  [dir="rtl"] {
+    font-family: 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+  }
+
+  /* iOS safe area padding for bottom nav */
+  body {
+    padding-bottom: var(--safe-area-bottom);
+  }
+
+  /* Prevent text scaling on iOS orientation change */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Remove tap highlight on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Consistent card style */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-4;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-brand-primary text-white font-semibold py-3 px-6 rounded-xl
+           active:scale-95 transition-transform duration-100
+           disabled:opacity-50 disabled:cursor-not-allowed w-full;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply border-2 border-brand-primary text-brand-primary font-semibold
+           py-3 px-6 rounded-xl active:scale-95 transition-transform duration-100
+           disabled:opacity-50 w-full bg-transparent;
+  }
+
+  /* Answer option button — KNM exam (PRD §9.3) */
+  .answer-option {
+    @apply w-full text-start border-2 border-gray-200 rounded-xl p-4
+           font-medium text-gray-800 transition-all duration-150
+           active:scale-[0.98] hover:border-brand-primary hover:bg-blue-50;
+  }
+
+  .answer-option.selected {
+    @apply border-brand-primary bg-blue-50 text-brand-primary;
+  }
+
+  /* Page container with bottom nav clearance */
+  .page-container {
+    @apply min-h-screen bg-brand-bg pb-20;
+    padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+  }
+
+  /* Skeleton loading animation */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded-lg;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar (desktop) */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E0;
+  border-radius: 2px;
+}
